@@ -1,17 +1,29 @@
 require 'pdf-reader'
 
 class ReaderPdf
-  class << self
-    def read_pdf
-      @reader = PDF::Reader.new("projeto_de_banco_de_dados.pdf")
-    end
+  attr_reader :pdf
 
-    def info
-      @reader.info[:Author]
-    end
+  def initialize(pdf)
+    @pdf = pdf
+  end
 
-    def page_count
-      @reader.page_count
-    end
+  def call
+    read_pdf
+    info
+    page_count
+  end
+
+  private
+
+  def read_pdf
+    @reader = PDF::Reader.new(pdf)
+  end
+
+  def info
+    @reader.info[:Author]
+  end
+
+  def page_count
+    @reader.page_count
   end
 end
